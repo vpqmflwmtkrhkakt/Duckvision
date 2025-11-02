@@ -4,6 +4,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "DebugHelper.h"
+#include "GameFramework/Character.h"
+
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 ADuckVisionPlayerController::ADuckVisionPlayerController()
@@ -44,6 +46,14 @@ void ADuckVisionPlayerController::SetupInputComponent()
 
 void ADuckVisionPlayerController::OnGetMovementInput(const FInputActionValue& Value)
 {
-	FVector2D Direction = Value.Get<FVector2D>();
-	DebugHelper::Print("X: " + FString::SanitizeFloat(Direction.X) + " Y: " + FString::SanitizeFloat(Direction.Y));
+	FVector Direction = Value.Get<FVector>();
+
+	ACharacter* PossessedCharacter = GetCharacter();
+
+	if (IsValid(PossessedCharacter))
+	{
+		PossessedCharacter->AddMovementInput(Direction.GetSafeNormal());
+	}
+
+
 }
