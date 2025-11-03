@@ -22,6 +22,7 @@ public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
+	void StartAimToLocation();
 	void RotateToTargetLocation(const FVector& Location);
 
 private:
@@ -35,5 +36,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = MovementSpeed, meta = (AllowPrivateAccess = "true"))
 	float MovementSpeed = 600.f;
+
+	FRotator LastRotation;
 };
 

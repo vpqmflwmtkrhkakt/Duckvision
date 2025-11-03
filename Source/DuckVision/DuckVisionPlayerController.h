@@ -28,6 +28,7 @@ protected:
 
 private:
 	void OnGetMovementInput(const FInputActionValue& Value);
+	void OnStartClickRightButton(const FInputActionValue& Value);
 	void OnClickRightButton(const FInputActionValue& Value);
 
 private:

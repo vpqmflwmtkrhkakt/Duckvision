@@ -48,6 +48,9 @@ void ADuckVisionPlayerController::SetupInputComponent()
 		// Setup mouse input events
 		EnhancedInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &ADuckVisionPlayerController::OnGetMovementInput);
 
+
+		EnhancedInputComponent->BindAction(RightClickAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnClickRightButton);
+
 		EnhancedInputComponent->BindAction(RightClickAction, ETriggerEvent::Triggered, this, &ADuckVisionPlayerController::OnClickRightButton);
 	}
 	else
@@ -66,8 +69,13 @@ void ADuckVisionPlayerController::OnGetMovementInput(const FInputActionValue& Va
 	{
 		PossessedCharacter->AddMovementInput(Direction.GetSafeNormal());
 	}
+}
 
+void ADuckVisionPlayerController::OnStartClickRightButton(const FInputActionValue& Value)
+{
+	if (!IsValid(MainPlayer)) return;
 
+	MainPlayer->StartAimToLocation();
 }
 
 void ADuckVisionPlayerController::OnClickRightButton(const FInputActionValue& Value)
