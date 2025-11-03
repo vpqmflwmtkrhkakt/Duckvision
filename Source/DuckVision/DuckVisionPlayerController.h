@@ -9,6 +9,7 @@
 
 class UInputMappingContext;
 class UInputAction;
+class ADuckVisionCharacter;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -19,6 +20,7 @@ class ADuckVisionPlayerController : public APlayerController
 
 public:
 	ADuckVisionPlayerController();
+	virtual void OnPossess(APawn* aPawn) override;
 
 protected:
 	virtual void SetupInputComponent() override;
@@ -26,6 +28,7 @@ protected:
 
 private:
 	void OnGetMovementInput(const FInputActionValue& Value);
+	void OnClickRightButton(const FInputActionValue& Value);
 
 private:
 	/** MappingContext */
@@ -35,6 +38,10 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* MovementAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* RightClickAction;
+
+	TObjectPtr<ADuckVisionCharacter> MainPlayer;
 };
 
 

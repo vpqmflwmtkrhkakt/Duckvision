@@ -50,3 +50,21 @@ void ADuckVisionCharacter::Tick(float DeltaSeconds)
     Super::Tick(DeltaSeconds);
 }
 
+void ADuckVisionCharacter::RotateToTargetLocation(const FVector& Location)
+{
+	FVector ToLocationDirection = Location - GetActorLocation();
+
+	ToLocationDirection.Z = 0.f;
+
+	if (ToLocationDirection.IsNearlyZero()) return;
+
+	FRotator TargetRotation = ToLocationDirection.Rotation();
+
+	const float RotationSpeed = 10.f;
+
+	FRotator NewRotation = FMath::RInterpTo(GetActorRotation(), TargetRotation, GetWorld()->GetDeltaSeconds(), RotationSpeed);
+
+	SetActorRotation(NewRotation);
+
+}
+

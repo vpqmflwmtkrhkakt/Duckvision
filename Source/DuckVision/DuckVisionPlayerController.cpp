@@ -4,7 +4,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "DebugHelper.h"
-#include "GameFramework/Character.h"
+#include "DuckVisionCharacter.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -12,6 +12,16 @@ ADuckVisionPlayerController::ADuckVisionPlayerController()
 {
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
+}
+
+void ADuckVisionPlayerController::OnPossess(APawn* aPawn)
+{
+	Super::OnPossess(aPawn);
+
+	if (IsValid(aPawn))
+	{
+		MainPlayer = Cast<ADuckVisionCharacter>(aPawn);
+	}
 }
 
 void ADuckVisionPlayerController::BeginPlay()
@@ -37,6 +47,8 @@ void ADuckVisionPlayerController::SetupInputComponent()
 	{
 		// Setup mouse input events
 		EnhancedInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &ADuckVisionPlayerController::OnGetMovementInput);
+
+		EnhancedInputComponent->BindAction(RightClickAction, ETriggerEvent::Triggered, this, &ADuckVisionPlayerController::OnClickRightButton);
 	}
 	else
 	{
@@ -56,4 +68,16 @@ void ADuckVisionPlayerController::OnGetMovementInput(const FInputActionValue& Va
 	}
 
 
+}
+
+void ADuckVisionPlayerController::OnClickRightButton(const FInputActionValue& Value)
+{
+	if (!IsValid(MainPlayer)) return;
+
+	FHitResult HitResult;
+
+	if (GetHitResultUnderCursor(ECollisionChannel::ECC_WorldStatic, true, HitResult))
+	{
+		MainPlayer->RotateToTargetLocation(HitResult.ImpactPoint);
+	}
 }
