@@ -48,6 +48,7 @@ void ADuckVisionPlayerController::SetupInputComponent()
 		// Setup mouse input events
 		EnhancedInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &ADuckVisionPlayerController::OnGetMovementInput);
 
+		EnhancedInputComponent->BindAction(LeftClickAction, ETriggerEvent::Triggered, this, &ADuckVisionPlayerController::OnClickLeftButton);
 
 		EnhancedInputComponent->BindAction(RightClickAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnClickRightButton);
 
@@ -78,6 +79,11 @@ void ADuckVisionPlayerController::OnStartClickRightButton(const FInputActionValu
 	if (!IsValid(MainPlayer)) return;
 
 	MainPlayer->StartAimToLocation();
+}
+
+void ADuckVisionPlayerController::OnClickLeftButton(const FInputActionValue& Value)
+{
+	OnFireWeapon.Broadcast();
 }
 
 void ADuckVisionPlayerController::OnClickRightButton(const FInputActionValue& Value)

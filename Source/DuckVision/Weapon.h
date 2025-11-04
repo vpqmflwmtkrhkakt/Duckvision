@@ -13,7 +13,7 @@ class DUCKVISION_API AWeapon : public AActor
 	
 public:	
 	AWeapon();
-
+	void SetupWeapon(AActor* IncomingOwner);
 protected:
 	virtual void BeginPlay() override;
 

@@ -59,8 +59,6 @@ ADuckVisionCharacter::ADuckVisionCharacter()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
-
-
 }
 
 void ADuckVisionCharacter::BeginPlay()
@@ -75,7 +73,7 @@ void ADuckVisionCharacter::BeginPlay()
 		{
 			EquippedWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("weapon_socket"));
 
-			EquippedWeapon->SetOwner(this);
+			EquippedWeapon->SetupWeapon(this);
 
 			EquippedWeapon->SetActorRelativeLocation(FVector(-10.534738, 1.605737, 11.576990));
 			EquippedWeapon->SetActorRelativeRotation(FRotator(-12.765573, -81.664898, 9.267090));

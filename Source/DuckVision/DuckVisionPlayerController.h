@@ -7,11 +7,13 @@
 #include "InputActionValue.h"
 #include "DuckVisionPlayerController.generated.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
+DECLARE_MULTICAST_DELEGATE(FOnFireWeapon);
+
 class UInputMappingContext;
 class UInputAction;
 class ADuckVisionCharacter;
 
-DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS()
 class ADuckVisionPlayerController : public APlayerController
@@ -22,6 +24,8 @@ public:
 	ADuckVisionPlayerController();
 	virtual void OnPossess(APawn* aPawn) override;
 
+	FOnFireWeapon OnFireWeapon;
+
 protected:
 	virtual void SetupInputComponent() override;
 	virtual void BeginPlay();
@@ -29,6 +33,7 @@ protected:
 private:
 	void OnGetMovementInput(const FInputActionValue& Value);
 	void OnStartClickRightButton(const FInputActionValue& Value);
+	void OnClickLeftButton(const FInputActionValue& Value);
 	void OnClickRightButton(const FInputActionValue& Value);
 	void OnPressReload(const FInputActionValue& Value);
 
@@ -39,6 +44,9 @@ private:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* MovementAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* LeftClickAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* RightClickAction;

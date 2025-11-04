@@ -2,6 +2,8 @@
 
 
 #include "Weapon.h"
+#include "DuckVisionPlayerController.h"
+#include "DebugHelper.h"
 
 AWeapon::AWeapon()
 {
@@ -18,11 +20,26 @@ AWeapon::AWeapon()
 	Mesh->SetupAttachment(Root);
 }
 
+void AWeapon::SetupWeapon(AActor* IncomingOwner)
+{
+	if (!IsValid(IncomingOwner)) return;
+
+	SetOwner(IncomingOwner);
+
+	ADuckVisionPlayerController* DuckVisionController = IncomingOwner->GetInstigatorController<ADuckVisionPlayerController>();
+
+	if (IsValid(DuckVisionController))
+	{
+		DuckVisionController->OnFireWeapon.AddUObject(this, &ThisClass::Fire);
+	}
+}
+
 void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 
 	CurrentRound = MaxRound;
+
 }
 
 void AWeapon::Tick(float DeltaTime)
@@ -33,5 +50,6 @@ void AWeapon::Tick(float DeltaTime)
 
 void AWeapon::Fire()
 {
+	DebugHelper::Print("Fire weapon");
 }
 

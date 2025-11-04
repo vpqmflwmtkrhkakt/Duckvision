@@ -6,7 +6,6 @@
 #include "GameFramework/Character.h"
 #include "DuckVisionCharacter.generated.h"
 
-
 class UAnimMontage;
 class AWeapon;
 
@@ -26,6 +25,7 @@ public:
 	void StartAimToLocation();
 	void RotateToTargetLocation(const FVector& Location);
 	void StartReload();
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* TopDownCameraComponent;
