@@ -8,6 +8,8 @@
 
 
 class UAnimMontage;
+class AWeapon;
+
 UCLASS(Blueprintable)
 class ADuckVisionCharacter : public ACharacter
 {
@@ -15,6 +17,7 @@ class ADuckVisionCharacter : public ACharacter
 
 public:
 	ADuckVisionCharacter();
+	virtual void BeginPlay() override;
 	//virtual void Tick(float DeltaSeconds) override;
 
 	FORCEINLINE class UCameraComponent* GetTopDownCameraComponent() const { return TopDownCameraComponent; }
@@ -38,5 +41,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = Animation, meta = (AllowPrivateAccess = "true"))
 	UAnimMontage* ReloadAnimMontage;
 
+	UPROPERTY(EditAnywhere, Category = Weapon, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<AWeapon> WeaponClass;
+
+	TObjectPtr<AWeapon> EquippedWeapon;
 };
 

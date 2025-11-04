@@ -5,18 +5,17 @@
 
 AWeapon::AWeapon()
 {
-	USceneComponent* RootComp = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 
-	check(RootComp);
+	check(Root);
 
-	SetRootComponent(RootComp);
+	SetRootComponent(Root);
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
 
 	check(Mesh);
 
-	Mesh->SetupAttachment(RootComp);
-
+	Mesh->SetupAttachment(Root);
 }
 
 void AWeapon::BeginPlay()

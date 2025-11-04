@@ -12,6 +12,8 @@
 #include "Engine/World.h"
 #include "Animation/AnimInstance.h"
 #include "Animation/AnimMontage.h"
+#include "DebugHelper.h"
+#include "Weapon.h"
 
 ADuckVisionCharacter::ADuckVisionCharacter()
 {
@@ -42,9 +44,43 @@ ADuckVisionCharacter::ADuckVisionCharacter()
 	TopDownCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	TopDownCameraComponent->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+
+	ConstructorHelpers::FClassFinder<AWeapon> WeaponClassFinder(TEXT("/Game/DuckVision/Blueprints/BP_Weapon"));
+
+	if (WeaponClassFinder.Succeeded())
+	{
+		WeaponClass = WeaponClassFinder.Class;
+	}
+	else
+	{
+		DebugHelper::Print("Find WeaponClass Failed");
+	}
+
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
+
+}
+
+void ADuckVisionCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (WeaponClass)
+	{
+		EquippedWeapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
+
+		if (IsValid(EquippedWeapon))
+		{
+			EquippedWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("weapon_socket"));
+
+			EquippedWeapon->SetOwner(this);
+
+			EquippedWeapon->SetActorRelativeLocation(FVector(-10.534738, 1.605737, 11.576990));
+			EquippedWeapon->SetActorRelativeRotation(FRotator(-12.765573, -81.664898, 9.267090));
+		}
+	}
 }
 
 
