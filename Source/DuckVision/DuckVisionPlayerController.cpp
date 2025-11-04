@@ -52,6 +52,8 @@ void ADuckVisionPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(RightClickAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnClickRightButton);
 
 		EnhancedInputComponent->BindAction(RightClickAction, ETriggerEvent::Triggered, this, &ADuckVisionPlayerController::OnClickRightButton);
+
+		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnPressReload);
 	}
 	else
 	{
@@ -87,5 +89,13 @@ void ADuckVisionPlayerController::OnClickRightButton(const FInputActionValue& Va
 	if (GetHitResultUnderCursor(ECollisionChannel::ECC_WorldStatic, true, HitResult))
 	{
 		MainPlayer->RotateToTargetLocation(HitResult.ImpactPoint);
+	}
+}
+
+void ADuckVisionPlayerController::OnPressReload(const FInputActionValue& Value)
+{
+	if (IsValid(MainPlayer))
+	{
+		MainPlayer->StartReload();
 	}
 }

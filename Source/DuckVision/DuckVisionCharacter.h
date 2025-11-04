@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "DuckVisionCharacter.generated.h"
 
+
+class UAnimMontage;
 UCLASS(Blueprintable)
 class ADuckVisionCharacter : public ACharacter
 {
@@ -24,6 +26,8 @@ public:
 
 	void StartAimToLocation();
 	void RotateToTargetLocation(const FVector& Location);
+	void StartReload();
+
 
 private:
 	/** Top down camera */
@@ -38,5 +42,9 @@ private:
 	float MovementSpeed = 600.f;
 
 	FRotator LastRotation;
+
+	UPROPERTY(EditAnywhere, Category = Animation, meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* ReloadAnimMontage;
+
 };
 

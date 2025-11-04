@@ -10,6 +10,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Materials/Material.h"
 #include "Engine/World.h"
+#include "Animation/AnimInstance.h"
+#include "Animation/AnimMontage.h"
 
 ADuckVisionCharacter::ADuckVisionCharacter()
 {
@@ -72,5 +74,16 @@ void ADuckVisionCharacter::RotateToTargetLocation(const FVector& Location)
 	SetActorRotation(NewRotation);
 
 	LastRotation = NewRotation;
+}
+
+void ADuckVisionCharacter::StartReload()
+{
+	if (!ReloadAnimMontage) return;
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+
+	if (!AnimInstance) return;
+
+	AnimInstance->Montage_Play(ReloadAnimMontage);
 }
 
