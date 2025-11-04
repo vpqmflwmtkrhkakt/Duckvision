@@ -47,10 +47,6 @@ ADuckVisionCharacter::ADuckVisionCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = true;
 }
 
-void ADuckVisionCharacter::Tick(float DeltaSeconds)
-{
-    Super::Tick(DeltaSeconds);
-}
 
 void ADuckVisionCharacter::StartAimToLocation()
 {
