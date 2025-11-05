@@ -37,4 +37,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = JoinTarget, meta = (AllowPrivateAccess = "true"))
 	FVector JoinTargetLocation;
+
+	TSubclassOf<AActor> BulletClass;
+
+	AActor* Bullet;
 };

@@ -18,6 +18,13 @@ AWeapon::AWeapon()
 	check(Mesh);
 
 	Mesh->SetupAttachment(Root);
+
+	ConstructorHelpers::FClassFinder<AActor> BulletClassFinder(TEXT("/Game/DuckVision/Blueprints/BP_Bullet"));
+
+	if (BulletClassFinder.Succeeded())
+	{
+		BulletClass = BulletClassFinder.Class;
+	}
 }
 
 void AWeapon::SetupWeapon(AActor* IncomingOwner)
@@ -61,6 +68,11 @@ void AWeapon::Tick(float DeltaTime)
 
 void AWeapon::Fire()
 {
-	DebugHelper::Print("Fire weapon");
+	if (BulletClass)
+	{
+		FVector Location = GetActorLocation();
+		FRotator Rotation = GetActorRotation();
+		GetWorld()->SpawnActor(BulletClass, &Location, &Rotation);
+	}
 }
 
