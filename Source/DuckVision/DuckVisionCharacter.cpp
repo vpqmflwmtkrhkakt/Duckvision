@@ -131,3 +131,10 @@ FTransform ADuckVisionCharacter::GetLHIKTransform()
 	return FTransform(Rotation, Location, FVector(1,1,1));
 }
 
+FVector ADuckVisionCharacter::GetJoinTargetLocation()
+{
+	if (!IsValid(EquippedWeapon)) return FVector::ZeroVector;
+
+	return EquippedWeapon->GetJointTargetLocation();
+}
+

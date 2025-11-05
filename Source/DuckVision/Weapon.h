@@ -15,6 +15,7 @@ public:
 	AWeapon();
 	void SetupWeapon(AActor* IncomingOwner);
 	FTransform GetSocketTransform() const;
+	const FVector& GetJointTargetLocation() const;
 protected:
 	virtual void BeginPlay() override;
 
@@ -34,4 +35,6 @@ private:
 	int32 MaxRound;
 	int32 CurrentRound = 0;
 
+	UPROPERTY(EditDefaultsOnly, Category = JoinTarget, meta = (AllowPrivateAccess = "true"))
+	FVector JoinTargetLocation;
 };

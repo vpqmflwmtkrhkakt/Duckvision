@@ -28,6 +28,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FTransform GetLHIKTransform();
+	UFUNCTION(BlueprintCallable)
+	FVector GetJoinTargetLocation();
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))

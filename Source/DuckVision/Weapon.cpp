@@ -40,6 +40,11 @@ FTransform AWeapon::GetSocketTransform() const
 	return Mesh->GetSocketTransform(SocketName);
 }
 
+const FVector& AWeapon::GetJointTargetLocation() const
+{
+	return JoinTargetLocation;
+}
+
 void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
