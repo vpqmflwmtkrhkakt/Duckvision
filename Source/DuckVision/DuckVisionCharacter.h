@@ -26,6 +26,9 @@ public:
 	void RotateToTargetLocation(const FVector& Location);
 	void StartReload();
 
+	UFUNCTION(BlueprintCallable)
+	FTransform GetLHIKTransform();
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* TopDownCameraComponent;

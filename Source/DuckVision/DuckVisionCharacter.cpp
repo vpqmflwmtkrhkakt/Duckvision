@@ -75,8 +75,8 @@ void ADuckVisionCharacter::BeginPlay()
 
 			EquippedWeapon->SetupWeapon(this);
 
-			EquippedWeapon->SetActorRelativeLocation(FVector(-10.534738, 1.605737, 11.576990));
-			EquippedWeapon->SetActorRelativeRotation(FRotator(-12.765573, -81.664898, 9.267090));
+			EquippedWeapon->SetActorRelativeLocation(FVector(-6.875157, 2.168866, 14.445861));
+			EquippedWeapon->SetActorRelativeRotation(FRotator(-3.650252, -80.150966, 28.032469));
 		}
 	}
 }
@@ -115,5 +115,19 @@ void ADuckVisionCharacter::StartReload()
 	if (!AnimInstance) return;
 
 	AnimInstance->Montage_Play(ReloadAnimMontage);
+}
+
+FTransform ADuckVisionCharacter::GetLHIKTransform()
+{
+	if (!IsValid(EquippedWeapon)) return FTransform();
+
+	FTransform WeaponTransform = EquippedWeapon->GetSocketTransform();
+
+	FVector Location;
+	FRotator Rotation;
+
+	GetMesh()->TransformToBoneSpace(TEXT("weapon_r"), WeaponTransform.GetLocation(), WeaponTransform.Rotator(), Location, Rotation);
+
+	return FTransform(Rotation, Location, FVector(1,1,1));
 }
 

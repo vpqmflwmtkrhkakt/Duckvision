@@ -14,6 +14,7 @@ class DUCKVISION_API AWeapon : public AActor
 public:	
 	AWeapon();
 	void SetupWeapon(AActor* IncomingOwner);
+	FTransform GetSocketTransform() const;
 protected:
 	virtual void BeginPlay() override;
 

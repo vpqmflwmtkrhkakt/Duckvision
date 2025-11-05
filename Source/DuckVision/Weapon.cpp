@@ -34,6 +34,12 @@ void AWeapon::SetupWeapon(AActor* IncomingOwner)
 	}
 }
 
+FTransform AWeapon::GetSocketTransform() const
+{
+	FName SocketName = TEXT("LHIK");
+	return Mesh->GetSocketTransform(SocketName);
+}
+
 void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
