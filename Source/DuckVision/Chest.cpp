@@ -5,6 +5,8 @@
 #include "Components/SphereComponent.h"
 #include "DebugHelper.h"
 #include "DuckVisionCharacter.h"
+#include "Blueprint/UserWidget.h"
+#include "GameFramework/PlayerController.h"
 
 AChest::AChest()
 {
@@ -23,6 +25,14 @@ AChest::AChest()
 	check(TriggerSphere);
 
 	TriggerSphere->SetupAttachment(Root);
+
+
+	ConstructorHelpers::FClassFinder<UUserWidget> ChestUIClassFinder(TEXT("/Game/DuckVision/Blueprints/UI/WBP_ChestUI"));
+
+	if (ChestUIClassFinder.Succeeded())
+	{
+		ChestUIClass = ChestUIClassFinder.Class;
+	}
 }
 
 void AChest::BeginPlay()
@@ -55,12 +65,34 @@ void AChest::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 		{
 			DuckCharacter->SetInteractableObject(nullptr);
 		}
+
+		if (ChestUI->IsInViewport())
+		{
+			ChestUI->RemoveFromParent();
+		}
 	}
 }
 
 void AChest::Interact(AActor* Caller)
 {
-	DebugHelper::Print("Interact");
+	if (!IsValid(ChestUI))
+	{
+		if (!ChestUIClass) return;
+		
+		ADuckVisionCharacter* DuckVisionCharacter = Cast<ADuckVisionCharacter>(Caller);
+
+		if (!IsValid(DuckVisionCharacter)) return;
+
+		APlayerController* PC = Cast<APlayerController>(DuckVisionCharacter->GetController());
+
+		if (!IsValid(PC)) return;
+
+		ChestUI = CreateWidget(PC, ChestUIClass);
+
+		if (!IsValid(ChestUI)) return;
+	}
+
+	ChestUI->AddToViewport();
 }
 
 

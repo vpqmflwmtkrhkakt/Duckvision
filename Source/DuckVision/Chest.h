@@ -9,6 +9,7 @@
 
 class UStaticMeshComponent;
 class USphereComponent;
+class UUserWidget;
 UCLASS()
 class DUCKVISION_API AChest : public AActor, public IInteractableInterface
 {
@@ -52,5 +53,10 @@ private:
 
 	// IInteractableInterface을(를) 통해 상속됨
 	void Interact(AActor* Caller) override;
+
+
+private:
+	TSubclassOf<UUserWidget> ChestUIClass;
+	UUserWidget* ChestUI;
 
 };
