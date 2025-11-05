@@ -117,6 +117,11 @@ void ADuckVisionCharacter::StartReload()
 	AnimInstance->Montage_Play(ReloadAnimMontage);
 }
 
+void ADuckVisionCharacter::TakeCover()
+{
+
+}
+
 FTransform ADuckVisionCharacter::GetLHIKTransform()
 {
 	if (!IsValid(EquippedWeapon)) return FTransform();

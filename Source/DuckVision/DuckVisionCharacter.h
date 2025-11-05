@@ -25,6 +25,7 @@ public:
 	void StartAimToLocation();
 	void RotateToTargetLocation(const FVector& Location);
 	void StartReload();
+	void TakeCover();
 
 	UFUNCTION(BlueprintCallable)
 	FTransform GetLHIKTransform();
