@@ -76,7 +76,9 @@ void ADuckVisionCharacter::BeginPlay()
 			EquippedWeapon->SetupWeapon(this);
 
 			EquippedWeapon->SetActorRelativeLocation(FVector(-6.875157, 2.168866, 14.445861));
-			EquippedWeapon->SetActorRelativeRotation(FRotator(-3.650252, -80.150966, 28.032469));
+			FRotator Rotator(27.968352, -168.20965, 4.126927);
+			EquippedWeapon->SetActorRelativeRotation(Rotator);
+			//(Pitch = 27.968352, Yaw = -168.209650, Roll = 4.126927)
 		}
 	}
 }

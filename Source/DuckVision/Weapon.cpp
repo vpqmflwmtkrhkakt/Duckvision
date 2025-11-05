@@ -71,7 +71,7 @@ void AWeapon::Fire()
 	if (BulletClass)
 	{
 		FVector Location = GetActorLocation();
-		FRotator Rotation = GetActorRotation();
+		FRotator Rotation = GetActorForwardVector().Rotation();
 		GetWorld()->SpawnActor(BulletClass, &Location, &Rotation);
 	}
 }
