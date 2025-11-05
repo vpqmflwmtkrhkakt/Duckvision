@@ -36,6 +36,7 @@ private:
 	void OnClickLeftButton(const FInputActionValue& Value);
 	void OnClickRightButton(const FInputActionValue& Value);
 	void OnPressReload(const FInputActionValue& Value);
+	void OnPressInteract(const FInputActionValue& Value);
 
 private:
 	/** MappingContext */
@@ -53,6 +54,9 @@ private:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* ReloadAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* InteractAction;
 
 	TObjectPtr<ADuckVisionCharacter> MainPlayer;
 };

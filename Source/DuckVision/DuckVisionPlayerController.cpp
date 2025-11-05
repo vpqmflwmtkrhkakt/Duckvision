@@ -55,6 +55,8 @@ void ADuckVisionPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(RightClickAction, ETriggerEvent::Triggered, this, &ADuckVisionPlayerController::OnClickRightButton);
 
 		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnPressReload);
+
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnPressInteract);
 	}
 	else
 	{
@@ -103,5 +105,13 @@ void ADuckVisionPlayerController::OnPressReload(const FInputActionValue& Value)
 	if (IsValid(MainPlayer))
 	{
 		MainPlayer->StartReload();
+	}
+}
+
+void ADuckVisionPlayerController::OnPressInteract(const FInputActionValue& Value)
+{
+	if (IsValid(MainPlayer))
+	{
+		MainPlayer->InteractObject();
 	}
 }

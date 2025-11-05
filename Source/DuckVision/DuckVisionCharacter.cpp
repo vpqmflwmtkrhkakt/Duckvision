@@ -14,6 +14,7 @@
 #include "Animation/AnimMontage.h"
 #include "DebugHelper.h"
 #include "Weapon.h"
+#include "InteractableInterface.h"
 
 ADuckVisionCharacter::ADuckVisionCharacter()
 {
@@ -119,6 +120,17 @@ void ADuckVisionCharacter::StartReload()
 	AnimInstance->Montage_Play(ReloadAnimMontage);
 }
 
+void ADuckVisionCharacter::InteractObject()
+{
+	if (!InteractableObject.IsValid()) return;
+
+	IInteractableInterface* Object = Cast<IInteractableInterface>(InteractableObject.Get());
+	if (Object)
+	{
+		Object->Interact(this);
+	}
+}
+
 FTransform ADuckVisionCharacter::GetLHIKTransform()
 {
 	if (!IsValid(EquippedWeapon)) return FTransform();
@@ -138,5 +150,20 @@ FVector ADuckVisionCharacter::GetJoinTargetLocation()
 	if (!IsValid(EquippedWeapon)) return FVector::ZeroVector;
 
 	return EquippedWeapon->GetJointTargetLocation();
+}
+
+void ADuckVisionCharacter::SetInteractableObject(IInteractableInterface* Object)
+{
+	InteractableObject = Cast<UObject>(Object);
+}
+
+IInteractableInterface* ADuckVisionCharacter::GetInteractableObject()
+{
+	if (InteractableObject.IsValid())
+	{
+		return Cast<IInteractableInterface>(InteractableObject.Get());
+	}
+
+	return nullptr;
 }
 

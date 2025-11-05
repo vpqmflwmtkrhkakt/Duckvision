@@ -8,7 +8,7 @@
 
 class UAnimMontage;
 class AWeapon;
-
+class IInteractableInterface;
 UCLASS(Blueprintable)
 class ADuckVisionCharacter : public ACharacter
 {
@@ -25,11 +25,15 @@ public:
 	void StartAimToLocation();
 	void RotateToTargetLocation(const FVector& Location);
 	void StartReload();
+	void InteractObject();
 
 	UFUNCTION(BlueprintCallable)
 	FTransform GetLHIKTransform();
 	UFUNCTION(BlueprintCallable)
 	FVector GetJoinTargetLocation();
+
+	void SetInteractableObject(IInteractableInterface* Object);
+	IInteractableInterface* GetInteractableObject();
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -50,5 +54,7 @@ private:
 	TSubclassOf<AWeapon> WeaponClass;
 
 	TObjectPtr<AWeapon> EquippedWeapon;
+
+	TWeakObjectPtr<UObject> InteractableObject;
 };
 
