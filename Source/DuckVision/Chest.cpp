@@ -66,7 +66,7 @@ void AChest::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 			DuckCharacter->SetInteractableObject(nullptr);
 		}
 
-		if (ChestUI->IsInViewport())
+		if (IsValid(ChestUI) && ChestUI->IsInViewport())
 		{
 			ChestUI->RemoveFromParent();
 		}

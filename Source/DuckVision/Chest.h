@@ -45,7 +45,7 @@ protected:
 private:
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	USceneComponent* Root;
-	UPROPERTY(EditDefaultsOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Mesh, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* Mesh;
 	UPROPERTY(EditDefaultsOnly, Category = TriggerSphere, meta = (AllowPrivateAccess = "true"))
 	USphereComponent* TriggerSphere;
