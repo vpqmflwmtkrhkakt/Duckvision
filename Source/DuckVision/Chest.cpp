@@ -32,7 +32,7 @@ AChest::AChest()
 	UIWidgetComponent->SetTwoSided(true);
 	UIWidgetComponent->SetBlendMode(EWidgetBlendMode::Transparent);
 	UIWidgetComponent->SetDrawAtDesiredSize(true);
-	UIWidgetComponent->SetDrawSize(FVector2D(400, 400)); // 이미지가 잘리지 않을 충분한 크기
+	UIWidgetComponent->SetDrawSize(FVector2D(400, 400));
 	UIWidgetComponent->SetPivot(FVector2D(0.5f, 0.5f));
 
 	TriggerSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Trigger"));

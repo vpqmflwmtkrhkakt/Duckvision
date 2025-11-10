@@ -39,6 +39,4 @@ private:
 	FVector JoinTargetLocation;
 
 	TSubclassOf<AActor> BulletClass;
-
-	AActor* Bullet;
 };

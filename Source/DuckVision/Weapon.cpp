@@ -72,7 +72,7 @@ void AWeapon::Fire()
 	{
 		FVector Location = GetActorLocation();
 		FRotator Rotation = GetActorForwardVector().Rotation();
-		GetWorld()->SpawnActor(BulletClass, &Location, &Rotation);
+		AActor* Bullet = GetWorld()->SpawnActor(BulletClass, &Location, &Rotation);
 	}
 }
 
