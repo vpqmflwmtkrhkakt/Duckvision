@@ -10,6 +10,9 @@
 class UStaticMeshComponent;
 class USphereComponent;
 class UUserWidget;
+class UMaterial;
+class UWidgetComponent;
+
 UCLASS()
 class DUCKVISION_API AChest : public AActor, public IInteractableInterface
 {
@@ -18,6 +21,8 @@ class DUCKVISION_API AChest : public AActor, public IInteractableInterface
 public:	
 	// Sets default values for this actor's properties
 	AChest();
+	virtual void Tick(float DeltaSeconds);
+
 
 protected:
 	// Called when the game starts or when spawned
@@ -42,6 +47,11 @@ protected:
         int32 OtherBodyIndex
     );
 
+	// IInteractableInterface을(를) 통해 상속됨
+	void Interact(AActor* Caller) override;
+
+	void MakeInteractUIFaceCam();
+
 private:
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	USceneComponent* Root;
@@ -51,12 +61,14 @@ private:
 	USphereComponent* TriggerSphere;
 
 
-	// IInteractableInterface을(를) 통해 상속됨
-	void Interact(AActor* Caller) override;
-
-
-private:
 	TSubclassOf<UUserWidget> ChestUIClass;
 	UUserWidget* ChestUI;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Widget")
+	UWidgetComponent* UIWidgetComponent;
+
+
+	UPROPERTY(EditDefaultsOnly, Category = "OutlineOverlay")
+	UMaterial* OutlineMaterial;
 
 };
