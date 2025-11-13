@@ -9,6 +9,8 @@
 class UAnimMontage;
 class AWeapon;
 class IInteractableInterface;
+class UInventoryComponent;
+
 UCLASS(Blueprintable)
 class ADuckVisionCharacter : public ACharacter
 {
@@ -26,6 +28,7 @@ public:
 	void RotateToTargetLocation(const FVector& Location);
 	void StartReload();
 	void InteractObject();
+	void ToggleInventory();
 
 	UFUNCTION(BlueprintCallable)
 	FTransform GetLHIKTransform();
@@ -41,6 +44,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
+
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Inventory, meta = (AllowPrivateAccess = "true"))
+	UInventoryComponent* InventoryComponent;
 
 	UPROPERTY(EditAnywhere, Category = MovementSpeed, meta = (AllowPrivateAccess = "true"))
 	float MovementSpeed = 600.f;

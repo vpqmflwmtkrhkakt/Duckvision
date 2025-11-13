@@ -57,6 +57,8 @@ void ADuckVisionPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnPressReload);
 
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnPressInteract);
+
+		EnhancedInputComponent->BindAction(ToggleInventoryAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnPressToggleInventory);
 	}
 	else
 	{
@@ -113,5 +115,13 @@ void ADuckVisionPlayerController::OnPressInteract(const FInputActionValue& Value
 	if (IsValid(MainPlayer))
 	{
 		MainPlayer->InteractObject();
+	}
+}
+
+void ADuckVisionPlayerController::OnPressToggleInventory(const FInputActionValue& Value)
+{
+	if (IsValid(MainPlayer))
+	{
+		MainPlayer->ToggleInventory();
 	}
 }

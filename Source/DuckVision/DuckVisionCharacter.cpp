@@ -15,6 +15,7 @@
 #include "DebugHelper.h"
 #include "Weapon.h"
 #include "InteractableInterface.h"
+#include "InventoryComponent.h"
 
 ADuckVisionCharacter::ADuckVisionCharacter()
 {
@@ -45,6 +46,7 @@ ADuckVisionCharacter::ADuckVisionCharacter()
 	TopDownCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	TopDownCameraComponent->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 
 	ConstructorHelpers::FClassFinder<AWeapon> WeaponClassFinder(TEXT("/Game/DuckVision/Blueprints/BP_Weapon"));
 
@@ -128,6 +130,14 @@ void ADuckVisionCharacter::InteractObject()
 	if (Object)
 	{
 		Object->Interact(this);
+	}
+}
+
+void ADuckVisionCharacter::ToggleInventory()
+{
+	if (IsValid(InventoryComponent))
+	{
+		InventoryComponent->ToggleInventory();
 	}
 }
 
