@@ -32,19 +32,6 @@ void UUILayer::PopLayer()
 	}
 }
 
-//UUserWidget* UUILayer::PushContentToLayer(UUserWidget* Content)
-//{
-//	if (!IsValid(Content)) return nullptr;
-//
-//	ClearBorder();
-//
-//	Widgets.Add(Content);
-//	BorderUI->AddChild(Content);
-//	Content->SetVisibility(ESlateVisibility::Visible);
-//
-//	return Content;
-//}
-
 void UUILayer::ShowTopWidget()
 {
 	if (Widgets.IsEmpty()) return;

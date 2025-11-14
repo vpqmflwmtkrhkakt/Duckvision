@@ -41,7 +41,7 @@ AChest::AChest()
 	TriggerSphere->SetupAttachment(Root);
 
 
-	ConstructorHelpers::FClassFinder<UUserWidget> ChestUIClassFinder(TEXT("/Game/DuckVision/Blueprints/UI/WBP_ChestUI"));
+	ConstructorHelpers::FClassFinder<UUserWidget> ChestUIClassFinder(TEXT("/Game/DuckVision/Blueprints/UI/InsertUI/WBP_ChestUI"));
 
 	if (ChestUIClassFinder.Succeeded())
 	{
