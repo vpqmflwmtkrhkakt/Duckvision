@@ -17,12 +17,14 @@ public:
 	void ShowTopWidget();
 	void CollapseTopWidget();
 	UUserWidget* GetTopWidget();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	UUserWidget* PushContentToLayer(UUserWidget* Content);
 private:
 	void ClearBorder();
 
 private:
 	UPROPERTY(EditDefaultsOnly, meta = (BindWidget))
-	UBorder* BorderUI;
+	UBorder* Border;
 	TArray<UUserWidget*> Widgets;
 };

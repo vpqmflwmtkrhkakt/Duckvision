@@ -3,15 +3,23 @@
 #include "Blueprint/UserWidget.h"
 #include "UILayer.h"
 #include "DebugHelper.h"
+#include "ScreenWidget.h"
 
 UUISubsystem::UUISubsystem()
 {
-	ConstructorHelpers::FClassFinder<UUserWidget> Finder(TEXT("/Game/DuckVision/Blueprints/UI/WBP_Screen"));
+	ConstructorHelpers::FClassFinder<UUserWidget> ScreenLayerFinder(TEXT("/Game/DuckVision/Blueprints/UI/WBP_Screen"));
 
-	if (Finder.Succeeded())
+	if (ScreenLayerFinder.Succeeded())
 	{
-		ScreenLayerClass = Finder.Class;
+		ScreenLayerClass = ScreenLayerFinder.Class;
 	}
+
+	ConstructorHelpers::FClassFinder<UUserWidget> IngameMenuLayerFinder(TEXT("/Game/DuckVision/Blueprints/UI/Layers/WBP_IngameMenuLayer"));
+	if (IngameMenuLayerFinder.Succeeded())
+	{
+		IngameMenuLayerClass = IngameMenuLayerFinder.Class;
+	}
+
 }
 
 void UUISubsystem::InitializeUI(APlayerController* PC)
@@ -25,22 +33,48 @@ void UUISubsystem::InitializeUI(APlayerController* PC)
 
 	if (ScreenLayerClass)
 	{
-		UUserWidget* ScreenLayerWidget = CreateWidget<UUserWidget>(PC, ScreenLayerClass);
+		ScreenWidget = CreateWidget<UScreenWidget>(PC, ScreenLayerClass);
 
-		if (!IsValid(ScreenLayerWidget))
+		if (!IsValid(ScreenWidget))
 		{
 			DebugHelper::Print("Failed To Create ScreenLayerWidget");
 			return;
 		}
 
-		ScreenLayerWidget->AddToViewport();
+		if (IngameMenuLayerClass)
+		{
+			UUILayer* IngameMenuWidget = CreateWidget<UUILayer>(PC, IngameMenuLayerClass);
+
+			if (IsValid(IngameMenuWidget))
+			{
+				RegisterLayer(EUIType::IngameMenu, IngameMenuWidget);
+			}
+		}
+
+		ScreenWidget->AddToViewport();
+	}
+}
+
+void UUISubsystem::RegisterLayer(const EUIType UIType, UUILayer* Layer)
+{
+	if (Layers.Contains(UIType)) return;
+
+	Layers.Add(UIType, Layer);
+	
+	if (IsValid(ScreenWidget))
+	{
+		ScreenWidget->RegisterLayer(Layer);
 	}
 }
 
 void UUISubsystem::PushContentToLayer(const EUIType UIType, UUserWidget* Content)
 {
-	if (!IsValid(Content)) return;
-	if (!Layers.Contains(UIType)) return;
+	//if (!IsValid(Content)) return;
+	if (!Layers.Contains(UIType))
+	{
+		DebugHelper::Print("Layer Empty");
+		return;
+	}
 
 	Layers[UIType]->PushContentToLayer(Content);
 }

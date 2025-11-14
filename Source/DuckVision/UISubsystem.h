@@ -15,7 +15,7 @@ enum class EUIType : uint32
 };
 
 class UUILayer;
-
+class UScreenWidget;
 UCLASS()
 class DUCKVISION_API UUISubsystem : public UGameInstanceSubsystem
 {
@@ -24,12 +24,13 @@ class DUCKVISION_API UUISubsystem : public UGameInstanceSubsystem
 public:
 	UUISubsystem();
 	void InitializeUI(APlayerController* PC);
-	//void RegisterLayer(const EUIType UIType, ULayer);
+	void RegisterLayer(const EUIType UIType, UUILayer* Layer);
 	void PushContentToLayer(const EUIType UIType, UUserWidget* Content);
 	void ClearLayer(const EUIType UIType);
 
 private:
 	TSubclassOf<UUserWidget> ScreenLayerClass;
-
+	TSubclassOf<UUserWidget> IngameMenuLayerClass;
+	UScreenWidget* ScreenWidget;
 	TMap<EUIType, UUILayer*> Layers;
 };

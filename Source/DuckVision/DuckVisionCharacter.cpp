@@ -145,6 +145,12 @@ void ADuckVisionCharacter::InteractObject()
 
 void ADuckVisionCharacter::ToggleInventory()
 {
+	UUISubsystem* UISubSystem = GetWorld()->GetGameInstance()->GetSubsystem<UUISubsystem>();
+
+	if (IsValid(UISubSystem))
+	{
+		UISubSystem->PushContentToLayer(EUIType::IngameMenu, nullptr);
+	}
 }
 
 FTransform ADuckVisionCharacter::GetLHIKTransform()

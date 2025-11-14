@@ -6,7 +6,7 @@
 
 void UUILayer::ClearLayer()
 {
-	BorderUI->ClearChildren();
+	Border->ClearChildren();
 
 	for (auto& Widget : Widgets)
 	{
@@ -28,22 +28,22 @@ void UUILayer::PopLayer()
 		UUserWidget* TopWidget = Widgets.Top();
 
 		TopWidget->SetVisibility(ESlateVisibility::Visible);
-		BorderUI->AddChild(TopWidget);
+		Border->AddChild(TopWidget);
 	}
 }
 
-UUserWidget* UUILayer::PushContentToLayer(UUserWidget* Content)
-{
-	if (!IsValid(Content)) return nullptr;
-
-	ClearBorder();
-
-	Widgets.Add(Content);
-	BorderUI->AddChild(Content);
-	Content->SetVisibility(ESlateVisibility::Visible);
-
-	return Content;
-}
+//UUserWidget* UUILayer::PushContentToLayer(UUserWidget* Content)
+//{
+//	if (!IsValid(Content)) return nullptr;
+//
+//	ClearBorder();
+//
+//	Widgets.Add(Content);
+//	BorderUI->AddChild(Content);
+//	Content->SetVisibility(ESlateVisibility::Visible);
+//
+//	return Content;
+//}
 
 void UUILayer::ShowTopWidget()
 {
@@ -67,5 +67,5 @@ void UUILayer::ClearBorder()
 
 	TopWidget->SetVisibility(ESlateVisibility::Collapsed);
 
-	BorderUI->ClearChildren();
+	Border->ClearChildren();
 }
