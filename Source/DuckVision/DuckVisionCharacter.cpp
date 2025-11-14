@@ -16,6 +16,7 @@
 #include "Weapon.h"
 #include "InteractableInterface.h"
 #include "InventoryComponent.h"
+#include "UISubsystem.h"
 
 ADuckVisionCharacter::ADuckVisionCharacter()
 {
@@ -84,6 +85,15 @@ void ADuckVisionCharacter::BeginPlay()
 			//(Pitch = 27.968352, Yaw = -168.209650, Roll = 4.126927)
 		}
 	}
+
+
+	UUISubsystem* UISubSystem = GetWorld()->GetGameInstance()->GetSubsystem<UUISubsystem>();
+
+
+	if (IsValid(UISubSystem))
+	{
+		UISubSystem->InitializeUI(Cast<APlayerController>(GetController()));
+	}
 }
 
 
@@ -135,10 +145,6 @@ void ADuckVisionCharacter::InteractObject()
 
 void ADuckVisionCharacter::ToggleInventory()
 {
-	if (IsValid(InventoryComponent))
-	{
-		InventoryComponent->ToggleInventory();
-	}
 }
 
 FTransform ADuckVisionCharacter::GetLHIKTransform()

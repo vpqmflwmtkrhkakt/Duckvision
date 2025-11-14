@@ -4,8 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "InvenSlotData.h"
+#include "ItemData.h"
 #include "InventoryComponent.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnItemAdded, int32, FInvenSlotData);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUCKVISION_API UInventoryComponent : public UActorComponent
@@ -13,10 +16,10 @@ class DUCKVISION_API UInventoryComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	void ToggleInventory();
+	FOnItemAdded OnItemAdded;
+	void AddItem(FItemData& ItemData);
 		
 protected:
-	virtual void BeginPlay() override;
-
-		
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Items", meta = (AllowPriateAccess = "true"))
+	TArray<FInvenSlotData> ItemDatas;
 };

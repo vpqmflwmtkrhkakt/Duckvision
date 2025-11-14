@@ -46,7 +46,7 @@ private:
 	class USpringArmComponent* CameraBoom;
 
 	
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Inventory, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Inventory, meta = (AllowPrivateAccess = "true"))
 	UInventoryComponent* InventoryComponent;
 
 	UPROPERTY(EditAnywhere, Category = MovementSpeed, meta = (AllowPrivateAccess = "true"))

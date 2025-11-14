@@ -28,6 +28,7 @@ void ADuckVisionPlayerController::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
 }
 
 
