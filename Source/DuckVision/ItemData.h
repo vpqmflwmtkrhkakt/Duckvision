@@ -5,7 +5,7 @@
 
 // 블루프린트에서 사용 가능하도록 하는 매크로
 USTRUCT(BlueprintType)
-struct FItemData
+struct FItemData : public FTableRowBase
 {
 	GENERATED_BODY();
 
