@@ -4,27 +4,33 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "UITypeEnum.h"
 #include "UILayer.generated.h"
 
-class UBorder;
 UCLASS()
 class DUCKVISION_API UUILayer : public UUserWidget
 {
 	GENERATED_BODY()
 public:
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ClearLayer();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void PopLayer();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ShowTopWidget();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void CollapseTopWidget();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	UUserWidget* GetTopWidget();
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	UUserWidget* PushContentToLayer(UUserWidget* Content);
-private:
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	UUserWidget* ToggleUI(UITypeEnum UIType);
+
+protected:
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ClearBorder();
 
-private:
-	UPROPERTY(EditDefaultsOnly, meta = (BindWidget))
-	UBorder* Border;
-	TArray<UUserWidget*> Widgets;
 };

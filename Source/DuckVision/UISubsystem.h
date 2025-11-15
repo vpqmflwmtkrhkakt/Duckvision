@@ -6,7 +6,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "UISubsystem.generated.h"
 
-enum class EUIType : uint32
+enum class ELayerType : uint32
 {
 	HUD,
 	IngameMenu,
@@ -24,13 +24,13 @@ class DUCKVISION_API UUISubsystem : public UGameInstanceSubsystem
 public:
 	UUISubsystem();
 	void InitializeUI(APlayerController* PC);
-	void RegisterLayer(const EUIType UIType, UUILayer* Layer);
-	void PushContentToLayer(const EUIType UIType, UUserWidget* Content);
-	void ClearLayer(const EUIType UIType);
+	void RegisterLayer(const ELayerType UIType, UUILayer* Layer);
+	void PushContentToLayer(const ELayerType UIType, UUserWidget* Content);
+	void ClearLayer(const ELayerType UIType);
 
 private:
 	TSubclassOf<UUserWidget> ScreenLayerClass;
 	TSubclassOf<UUserWidget> IngameMenuLayerClass;
 	UScreenWidget* ScreenWidget;
-	TMap<EUIType, UUILayer*> Layers;
+	TMap<ELayerType, UUILayer*> Layers;
 };

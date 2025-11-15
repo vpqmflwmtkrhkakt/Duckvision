@@ -47,7 +47,7 @@ void UUISubsystem::InitializeUI(APlayerController* PC)
 
 			if (IsValid(IngameMenuWidget))
 			{
-				RegisterLayer(EUIType::IngameMenu, IngameMenuWidget);
+				RegisterLayer(ELayerType::IngameMenu, IngameMenuWidget);
 			}
 		}
 
@@ -55,7 +55,7 @@ void UUISubsystem::InitializeUI(APlayerController* PC)
 	}
 }
 
-void UUISubsystem::RegisterLayer(const EUIType UIType, UUILayer* Layer)
+void UUISubsystem::RegisterLayer(const ELayerType UIType, UUILayer* Layer)
 {
 	if (Layers.Contains(UIType)) return;
 
@@ -67,7 +67,7 @@ void UUISubsystem::RegisterLayer(const EUIType UIType, UUILayer* Layer)
 	}
 }
 
-void UUISubsystem::PushContentToLayer(const EUIType UIType, UUserWidget* Content)
+void UUISubsystem::PushContentToLayer(const ELayerType UIType, UUserWidget* Content)
 {
 	//if (!IsValid(Content)) return;
 	if (!Layers.Contains(UIType))
@@ -79,7 +79,7 @@ void UUISubsystem::PushContentToLayer(const EUIType UIType, UUserWidget* Content
 	Layers[UIType]->PushContentToLayer(Content);
 }
 
-void UUISubsystem::ClearLayer(const EUIType UIType)
+void UUISubsystem::ClearLayer(const ELayerType UIType)
 {
 	if (Layers.Contains(UIType))
 	{

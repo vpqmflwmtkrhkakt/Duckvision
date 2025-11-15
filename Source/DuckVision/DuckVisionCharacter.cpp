@@ -97,6 +97,7 @@ void ADuckVisionCharacter::BeginPlay()
 }
 
 
+
 void ADuckVisionCharacter::StartAimToLocation()
 {
 	LastRotation = GetActorRotation();
@@ -149,7 +150,7 @@ void ADuckVisionCharacter::ToggleInventory()
 
 	if (IsValid(UISubSystem))
 	{
-		UISubSystem->PushContentToLayer(EUIType::IngameMenu, nullptr);
+		UISubSystem->PushContentToLayer(ELayerType::IngameMenu, nullptr);
 	}
 }
 
