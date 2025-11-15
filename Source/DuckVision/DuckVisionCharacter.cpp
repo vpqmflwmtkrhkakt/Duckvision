@@ -150,7 +150,7 @@ void ADuckVisionCharacter::ToggleInventory()
 
 	if (IsValid(UISubSystem))
 	{
-		UISubSystem->PushContentToLayer(ELayerType::IngameMenu, nullptr);
+		UISubSystem->ToggleUI(ELayerType::IngameMenu, UITypeEnum::SearchResult);
 	}
 }
 

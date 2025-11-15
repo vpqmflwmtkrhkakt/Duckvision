@@ -24,7 +24,6 @@ UUISubsystem::UUISubsystem()
 
 void UUISubsystem::InitializeUI(APlayerController* PC)
 {
-	DebugHelper::Print("Init ui");
 	if (!IsValid(PC))
 	{
 		DebugHelper::Print("PC Not Exists");
@@ -41,6 +40,9 @@ void UUISubsystem::InitializeUI(APlayerController* PC)
 			return;
 		}
 
+		ScreenWidget->AddToViewport();
+		ScreenWidget->SetVisibility(ESlateVisibility::Visible);
+
 		if (IngameMenuLayerClass)
 		{
 			UUILayer* IngameMenuWidget = CreateWidget<UUILayer>(PC, IngameMenuLayerClass);
@@ -51,38 +53,42 @@ void UUISubsystem::InitializeUI(APlayerController* PC)
 			}
 		}
 
-		ScreenWidget->AddToViewport();
 	}
 }
 
-void UUISubsystem::RegisterLayer(const ELayerType UIType, UUILayer* Layer)
+void UUISubsystem::RegisterLayer(const ELayerType LayerType, UUILayer* Layer)
 {
-	if (Layers.Contains(UIType)) return;
-
-	Layers.Add(UIType, Layer);
+	if (Layers.Contains(LayerType)) return;
+	if (!IsValid(ScreenWidget)) return;
 	
-	if (IsValid(ScreenWidget))
-	{
-		ScreenWidget->RegisterLayer(Layer);
-	}
+	Layers.Add(LayerType, Layer);
+	ScreenWidget->RegisterLayer(Layer);
 }
 
-void UUISubsystem::PushContentToLayer(const ELayerType UIType, UUserWidget* Content)
+void UUISubsystem::PushContentToLayer(const ELayerType LayerType, UUserWidget* Content)
 {
-	//if (!IsValid(Content)) return;
-	if (!Layers.Contains(UIType))
+	if (!IsValid(Content)) return;
+	if (!Layers.Contains(LayerType))
 	{
 		DebugHelper::Print("Layer Empty");
 		return;
 	}
 
-	Layers[UIType]->PushContentToLayer(Content);
+	Layers[LayerType]->PushContentToLayer(Content);
 }
 
-void UUISubsystem::ClearLayer(const ELayerType UIType)
+void UUISubsystem::ClearLayer(const ELayerType LayerType)
 {
-	if (Layers.Contains(UIType))
+	if (Layers.Contains(LayerType))
 	{
-		Layers[UIType]->ClearLayer();
+		Layers[LayerType]->ClearLayer();
+	}
+}
+
+void UUISubsystem::ToggleUI(const ELayerType LayerType, const UITypeEnum UIType)
+{
+	if (Layers.Contains(LayerType))
+	{
+		Layers[LayerType]->ToggleUI(UIType);
 	}
 }

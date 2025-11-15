@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "UITypeEnum.h"
 #include "UISubsystem.generated.h"
 
 enum class ELayerType : uint32
@@ -24,9 +25,10 @@ class DUCKVISION_API UUISubsystem : public UGameInstanceSubsystem
 public:
 	UUISubsystem();
 	void InitializeUI(APlayerController* PC);
-	void RegisterLayer(const ELayerType UIType, UUILayer* Layer);
-	void PushContentToLayer(const ELayerType UIType, UUserWidget* Content);
-	void ClearLayer(const ELayerType UIType);
+	void RegisterLayer(const ELayerType LayerType, UUILayer* Layer);
+	void PushContentToLayer(const ELayerType LayerType, UUserWidget* Content);
+	void ClearLayer(const ELayerType LayerType);
+	void ToggleUI(const ELayerType LayerType, const UITypeEnum UIType);
 
 private:
 	TSubclassOf<UUserWidget> ScreenLayerClass;
