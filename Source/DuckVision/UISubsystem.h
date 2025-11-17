@@ -28,7 +28,10 @@ public:
 	void RegisterLayer(const ELayerType LayerType, UUILayer* Layer);
 	void PushContentToLayer(const ELayerType LayerType, UUserWidget* Content);
 	void ClearLayer(const ELayerType LayerType);
+
+
 	void ToggleUI(const ELayerType LayerType, const UITypeEnum UIType);
+	void CloseToggleUI(const ELayerType LayerType, const UITypeEnum UIType);
 
 private:
 	TSubclassOf<UUserWidget> ScreenLayerClass;

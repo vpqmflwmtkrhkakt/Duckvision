@@ -8,7 +8,11 @@
 #include "ItemData.h"
 #include "InventoryComponent.generated.h"
 
-DECLARE_MULTICAST_DELEGATE_TwoParams(FOnItemAdded, int32, FInvenSlotData);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(
+	FOnItemAdded,
+	int32, SlotIndex,
+	FInvenSlotData, SlotData
+);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUCKVISION_API UInventoryComponent : public UActorComponent
@@ -16,8 +20,11 @@ class DUCKVISION_API UInventoryComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
+	UPROPERTY(BlueprintAssignable, Category = "Inventory")
 	FOnItemAdded OnItemAdded;
-	void AddItem(FItemData& ItemData);
+
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	bool AddItem(FItemData ItemData);
 		
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Items", meta = (AllowPriateAccess = "true"))

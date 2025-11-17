@@ -53,16 +53,15 @@ protected:
 	void MakeInteractUIFaceCam();
 
 private:
+	void ToggleChestUI();
+
+private:
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	USceneComponent* Root;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Mesh, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* Mesh;
 	UPROPERTY(EditDefaultsOnly, Category = TriggerSphere, meta = (AllowPrivateAccess = "true"))
 	USphereComponent* TriggerSphere;
-
-
-	TSubclassOf<UUserWidget> ChestUIClass;
-	UUserWidget* ChestUI;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Widget")
 	UWidgetComponent* UIWidgetComponent;

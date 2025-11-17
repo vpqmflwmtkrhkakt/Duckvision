@@ -9,7 +9,6 @@
 UENUM(BlueprintType)
 enum class UITypeEnum : uint8
 {
-    Inventory       UMETA(DisplayName="Inventory"),
     Pause           UMETA(DisplayName="Pause"),
     Map             UMETA(DisplayName="Map"),
     Equipment       UMETA(DisplayName="Equipment"),

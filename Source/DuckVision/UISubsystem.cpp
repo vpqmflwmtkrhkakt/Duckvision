@@ -92,3 +92,11 @@ void UUISubsystem::ToggleUI(const ELayerType LayerType, const UITypeEnum UIType)
 		Layers[LayerType]->ToggleUI(UIType);
 	}
 }
+
+void UUISubsystem::CloseToggleUI(const ELayerType LayerType, const UITypeEnum UIType)
+{
+	if (Layers.Contains(LayerType))
+	{
+		Layers[LayerType]->CloseToggleUI(UIType);
+	}
+}

@@ -5,12 +5,11 @@
 #include "Components/SphereComponent.h"
 #include "DebugHelper.h"
 #include "DuckVisionCharacter.h"
-#include "Blueprint/UserWidget.h"
 #include "GameFramework/PlayerController.h"
 #include "Components/WidgetComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "PopupWidget.h"
-
+#include "UISubsystem.h"
 
 AChest::AChest()
 {
@@ -40,15 +39,6 @@ AChest::AChest()
 
 	TriggerSphere->SetupAttachment(Root);
 
-
-	ConstructorHelpers::FClassFinder<UUserWidget> ChestUIClassFinder(TEXT("/Game/DuckVision/Blueprints/UI/InsertUI/WBP_ChestUI"));
-
-	if (ChestUIClassFinder.Succeeded())
-	{
-		ChestUIClass = ChestUIClassFinder.Class;
-	}
-
-
 	PrimaryActorTick.bCanEverTick = true;
 }
 
@@ -57,7 +47,6 @@ void AChest::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	MakeInteractUIFaceCam();
-
 }
 
 void AChest::BeginPlay()
@@ -116,9 +105,19 @@ void AChest::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 			DuckCharacter->SetInteractableObject(nullptr);
 		}
 
-		if (IsValid(ChestUI) && ChestUI->IsInViewport())
+		UWorld* World = GetWorld();
+
+		if (!IsValid(World)) return;
+
+		UGameInstance* CurrentGameInstance = World->GetGameInstance();
+
+		if (!IsValid(CurrentGameInstance)) return;
+
+		UUISubsystem* SubSystem = CurrentGameInstance->GetSubsystem<UUISubsystem>();
+
+		if (SubSystem)
 		{
-			ChestUI->RemoveFromParent();
+			SubSystem->CloseToggleUI(ELayerType::IngameMenu, UITypeEnum::SearchResult);
 		}
 
 		if (IsValid(UIWidgetComponent))
@@ -131,35 +130,17 @@ void AChest::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 			}
 		}
 
+
 		if (Mesh && IsValid(OutlineMaterial))
 		{
 			Mesh->SetOverlayMaterial(nullptr);
 		}
-
-
 	}
 }
 
 void AChest::Interact(AActor* Caller)
 {
-	if (!IsValid(ChestUI))
-	{
-		if (!ChestUIClass) return;
-		
-		ADuckVisionCharacter* DuckVisionCharacter = Cast<ADuckVisionCharacter>(Caller);
-
-		if (!IsValid(DuckVisionCharacter)) return;
-
-		APlayerController* PC = Cast<APlayerController>(DuckVisionCharacter->GetController());
-
-		if (!IsValid(PC)) return;
-
-		ChestUI = CreateWidget(PC, ChestUIClass);
-
-		if (!IsValid(ChestUI)) return;
-	}
-
-	ChestUI->AddToViewport();
+	ToggleChestUI();
 }
 
 void AChest::MakeInteractUIFaceCam()
@@ -173,6 +154,24 @@ void AChest::MakeInteractUIFaceCam()
 		FVector ToCam = CameraLoc - UIWidgetComponent->GetComponentLocation();
 		FRotator LookAt = FRotationMatrix::MakeFromX(ToCam).Rotator();
 		UIWidgetComponent->SetWorldRotation(LookAt);
+	}
+}
+
+void AChest::ToggleChestUI()
+{
+	UWorld* World = GetWorld();
+
+	if (!IsValid(World)) return;
+
+	UGameInstance* CurrentGameInstance = World->GetGameInstance();
+
+	if (!IsValid(CurrentGameInstance)) return;
+
+	UUISubsystem* SubSystem = CurrentGameInstance->GetSubsystem<UUISubsystem>();
+
+	if (SubSystem)
+	{
+		SubSystem->ToggleUI(ELayerType::IngameMenu, UITypeEnum::SearchResult);
 	}
 }
 

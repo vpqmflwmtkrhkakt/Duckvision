@@ -5,7 +5,7 @@
 #include "DebugHelper.h"
 #include "UISubsystem.h"
 
-void UInventoryComponent::AddItem(FItemData& ItemData)
+bool UInventoryComponent::AddItem(FItemData ItemData)
 {
 	for (int32 i = 0; i < ItemDatas.Num(); ++i)
 	{
@@ -22,7 +22,8 @@ void UInventoryComponent::AddItem(FItemData& ItemData)
 				ItemData.CurrentCount -= AddCount;
 
 				OnItemAdded.Broadcast(i, ItemDatas[i]);
-				if (ItemData.CurrentCount <= 0) break;
+
+				if (ItemData.CurrentCount <= 0) return true;
 			}
 		}
 	}
@@ -37,5 +38,8 @@ void UInventoryComponent::AddItem(FItemData& ItemData)
 
 		OnItemAdded.Broadcast(ItemDatas.Num() - 1, SlotData);
 		ItemData.CurrentCount -= AddCount;
+		if (ItemData.CurrentCount <= 0) return true;
 	}
+
+	return false;
 }

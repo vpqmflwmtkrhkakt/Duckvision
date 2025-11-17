@@ -29,6 +29,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	UUserWidget* ToggleUI(UITypeEnum UIType);
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void CloseToggleUI(UITypeEnum UIType);
+
 protected:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ClearBorder();
