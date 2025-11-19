@@ -5,41 +5,72 @@
 #include "DebugHelper.h"
 #include "UISubsystem.h"
 
-bool UInventoryComponent::AddItem(FItemData ItemData)
+void UInventoryComponent::BeginPlay()
 {
-	for (int32 i = 0; i < ItemDatas.Num(); ++i)
+	Super::BeginPlay();
+
+	InvenDatas.Reserve(InventorySize);
+}
+
+FItemData UInventoryComponent::AddItem(FItemData ItemData)
+{
+	for (int32 i = 0; i < InvenDatas.Num(); ++i)
 	{
-		if (ItemDatas[i].ItemID == ItemData.ItemID)
+		if (InvenDatas[i].ItemData.ItemID == ItemData.ItemID)
 		{
-			if (ItemDatas[i].CurrentCount < ItemDatas[i].MaxCountPerSlot)
+			if (InvenDatas[i].ItemData.CurrentCount < InvenDatas[i].ItemData.MaxCountPerSlot)
 			{
-				const int32 AddableCount = ItemDatas[i].MaxCountPerSlot - ItemDatas[i].CurrentCount;
+				const int32 AddableCount = InvenDatas[i].ItemData.MaxCountPerSlot - InvenDatas[i].ItemData.CurrentCount;
 
 				const int32 AddCount = FMath::Min(ItemData.CurrentCount, AddableCount);
 
-				ItemDatas[i].CurrentCount += AddCount;
+				InvenDatas[i].ItemData.CurrentCount += AddCount;
 
 				ItemData.CurrentCount -= AddCount;
 
-				OnItemAdded.Broadcast(i, ItemDatas[i]);
+				OnItemUpdated.Broadcast(i, InvenDatas[i]);
 
-				if (ItemData.CurrentCount <= 0) return true;
+				if (ItemData.CurrentCount <= 0) return ItemData;
 			}
 		}
 	}
 
-	while (ItemData.CurrentCount > 0)
+	while (ItemData.CurrentCount > 0 && InvenDatas.Num() < InventorySize)
 	{
 		const int32 AddCount = FMath::Min(ItemData.CurrentCount, ItemData.MaxCountPerSlot);
 
-		FInvenSlotData SlotData(ItemData.ItemID, ItemData.InvenIcon, AddCount, ItemData.MaxCountPerSlot, ItemData.bIsStackable);
+		FInvenSlotData SlotData(ItemData, InvenDatas.Num());
 
-		ItemDatas.Add(SlotData);
+		InvenDatas.Add(SlotData);
 
-		OnItemAdded.Broadcast(ItemDatas.Num() - 1, SlotData);
+		OnItemUpdated.Broadcast(InvenDatas.Num() - 1, SlotData);
 		ItemData.CurrentCount -= AddCount;
-		if (ItemData.CurrentCount <= 0) return true;
 	}
 
-	return false;
+	return ItemData;
 }
+
+void UInventoryComponent::UpdateItemData(const int32 Index, FItemData& ItemData)
+{
+	if (!InvenDatas.IsValidIndex(Index)) return;
+
+	InvenDatas[Index].ItemData = ItemData;
+	if (InvenDatas[Index].ItemData.CurrentCount <= 0)
+	{
+		InvenDatas[Index].IsEmpty = true;
+	}
+
+	OnItemUpdated.Broadcast(Index, InvenDatas[Index]);
+}
+
+void UInventoryComponent::RemoveItem(const int32 Index)
+{
+	if (!InvenDatas.IsValidIndex(Index)) return;
+	if (!InvenDatas[Index].IsEmpty) return;
+
+	InvenDatas[Index].ItemData = FItemData();
+	InvenDatas[Index].IsEmpty = true;
+
+	OnItemUpdated.Broadcast(Index, InvenDatas[Index]);
+}
+

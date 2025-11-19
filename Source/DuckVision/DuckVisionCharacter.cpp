@@ -175,16 +175,21 @@ FVector ADuckVisionCharacter::GetJoinTargetLocation()
 	return EquippedWeapon->GetJointTargetLocation();
 }
 
+UInventoryComponent* ADuckVisionCharacter::GetInventoryComponent() const
+{
+	return InventoryComponent;
+}
+
 void ADuckVisionCharacter::SetInteractableObject(IInteractableInterface* Object)
 {
 	InteractableObject = Cast<UObject>(Object);
 }
 
-IInteractableInterface* ADuckVisionCharacter::GetInteractableObject()
+UObject* ADuckVisionCharacter::GetInteractableObject()
 {
 	if (InteractableObject.IsValid())
 	{
-		return Cast<IInteractableInterface>(InteractableObject.Get());
+		return InteractableObject.Get();
 	}
 
 	return nullptr;

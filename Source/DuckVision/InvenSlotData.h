@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ItemData.h"
 #include "InvenSlotData.generated.h"
 
 // 블루프린트에서 사용 가능하도록 하는 매크로
@@ -9,28 +10,14 @@ struct FInvenSlotData
 {
 	GENERATED_BODY();
 	FInvenSlotData() {}
-
-	FInvenSlotData(const FString& ID, UTexture2D* Icon, const int32 Count, const int32 MaxCount, const bool isStackable)
-	{
-		ItemID = ID;
-		InvenIcon = Icon;
-		CurrentCount = Count;
-		MaxCountPerSlot = MaxCount;
-		bIsStackable = isStackable;
-	}
+	FInvenSlotData(const FItemData& InputItemData, const int32 Index) : IsEmpty(false), SlotIndex(Index), ItemData(InputItemData) {}
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString ItemID;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UTexture2D* InvenIcon;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 CurrentCount;
+	bool IsEmpty = true;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxCountPerSlot;
+	int32 SlotIndex;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bIsStackable = true;
+	FItemData ItemData;
 };

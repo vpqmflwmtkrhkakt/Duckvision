@@ -9,6 +9,8 @@ struct FItemData : public FTableRowBase
 {
 	GENERATED_BODY();
 
+	FItemData() : ItemID(TEXT("")), InvenIcon(nullptr), CurrentCount(0), MaxCountPerSlot(0) {}
+
 	// 블루프린트 에디터에서 보이게 하고 수정 가능하도록
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ItemID;

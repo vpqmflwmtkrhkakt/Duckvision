@@ -12,7 +12,7 @@ class USphereComponent;
 class UUserWidget;
 class UMaterial;
 class UWidgetComponent;
-
+class UInventoryComponent;
 UCLASS()
 class DUCKVISION_API AChest : public AActor, public IInteractableInterface
 {
@@ -37,7 +37,6 @@ protected:
 		bool bFromSweep,
 		const FHitResult& SweepResult
 	);
-
 
 	UFUNCTION()
     void OnEndOverlap(

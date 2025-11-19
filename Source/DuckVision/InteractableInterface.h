@@ -17,6 +17,5 @@ class DUCKVISION_API IInteractableInterface
 	GENERATED_BODY()
 
 public:
-	// 순수 가상 함수
 	virtual void Interact(AActor* Caller) = 0;
 };

@@ -98,7 +98,7 @@ void AChest::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActo
 
 	if (IsValid(DuckCharacter))
 	{
-		IInteractableInterface* Object = DuckCharacter->GetInteractableObject();
+		IInteractableInterface* Object = Cast<IInteractableInterface>(DuckCharacter->GetInteractableObject());
 
 		if (Object == this)
 		{

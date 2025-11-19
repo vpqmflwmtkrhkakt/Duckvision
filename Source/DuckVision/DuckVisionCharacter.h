@@ -8,8 +8,8 @@
 
 class UAnimMontage;
 class AWeapon;
-class IInteractableInterface;
 class UInventoryComponent;
+class IInteractableInterface;
 
 UCLASS(Blueprintable)
 class ADuckVisionCharacter : public ACharacter
@@ -34,9 +34,13 @@ public:
 	FTransform GetLHIKTransform();
 	UFUNCTION(BlueprintCallable)
 	FVector GetJoinTargetLocation();
+	UFUNCTION(BlueprintCallable)
+	UInventoryComponent* GetInventoryComponent() const;
 
 	void SetInteractableObject(IInteractableInterface* Object);
-	IInteractableInterface* GetInteractableObject();
+
+	UFUNCTION(BlueprintCallable)
+	UObject* GetInteractableObject();
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
