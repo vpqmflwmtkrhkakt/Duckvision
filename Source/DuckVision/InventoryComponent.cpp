@@ -39,7 +39,9 @@ FItemData UInventoryComponent::AddItem(FItemData ItemData)
 	{
 		const int32 AddCount = FMath::Min(ItemData.CurrentCount, ItemData.MaxCountPerSlot);
 
-		FInvenSlotData SlotData(ItemData, InvenDatas.Num());
+		FItemData InputItemData(ItemData.ItemID, ItemData.InvenIcon, AddCount, ItemData.MaxCountPerSlot, ItemData.bIsStackable);
+
+		FInvenSlotData SlotData(InputItemData, InvenDatas.Num());
 
 		InvenDatas.Add(SlotData);
 
