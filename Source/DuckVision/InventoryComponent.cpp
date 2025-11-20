@@ -8,12 +8,23 @@
 void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
+
+	InvenDatas.SetNum(InventorySize);
+
+	for (int32 i = 0; i < InvenDatas.Num(); ++i)
+	{
+		InvenDatas[i].SlotIndex = i;
+		InvenDatas[i].IsEmpty = true;
+		InvenDatas[i].ItemData = FItemData();
+	}
 }
 
 FItemData UInventoryComponent::AddItem(FItemData ItemData)
 {
 	for (int32 i = 0; i < InvenDatas.Num(); ++i)
 	{
+		if (InvenDatas[i].IsEmpty) continue;
+
 		if (InvenDatas[i].ItemData.ItemID == ItemData.ItemID)
 		{
 			if (InvenDatas[i].ItemData.CurrentCount < InvenDatas[i].ItemData.MaxCountPerSlot)
@@ -26,38 +37,46 @@ FItemData UInventoryComponent::AddItem(FItemData ItemData)
 
 				ItemData.CurrentCount -= AddCount;
 
-				OnItemUpdated.Broadcast(i, InvenDatas[i]);
+				OnItemUpdated.Broadcast(InvenDatas[i].SlotIndex, InvenDatas[i]);
 
-				if (ItemData.CurrentCount <= 0) return ItemData;
+				if (ItemData.CurrentCount <= 0) return FItemData();
 			}
 		}
 	}
 
-	while (ItemData.CurrentCount > 0 && InvenDatas.Num() < InventorySize)
+	for (int32 i = 0; i < InvenDatas.Num() && ItemData.CurrentCount > 0; ++i)
 	{
+		if (!InvenDatas[i].IsEmpty) continue;
+
 		const int32 AddCount = FMath::Min(ItemData.CurrentCount, ItemData.MaxCountPerSlot);
 
 		FItemData InputItemData(ItemData.ItemID, ItemData.InvenIcon, AddCount, ItemData.MaxCountPerSlot, ItemData.bIsStackable);
 
-		FInvenSlotData SlotData(InputItemData, InvenDatas.Num());
+		InvenDatas[i].ItemData = InputItemData;
+		InvenDatas[i].IsEmpty = false;
 
-		InvenDatas.Add(SlotData);
+		OnItemUpdated.Broadcast(InvenDatas[i].SlotIndex, InvenDatas[i]);
 
-		OnItemUpdated.Broadcast(InvenDatas.Num() - 1, SlotData);
 		ItemData.CurrentCount -= AddCount;
+		if (ItemData.CurrentCount <= 0) return FItemData();
 	}
 
 	return ItemData;
 }
 
-void UInventoryComponent::UpdateItemData(const int32 Index, FItemData& ItemData)
+void UInventoryComponent::UpdateInvenData(const int32 Index, FItemData ItemData)
 {
 	if (!InvenDatas.IsValidIndex(Index)) return;
 
-	InvenDatas[Index].ItemData = ItemData;
-	if (InvenDatas[Index].ItemData.CurrentCount <= 0)
+	if (ItemData.CurrentCount <= 0)
 	{
 		InvenDatas[Index].IsEmpty = true;
+		InvenDatas[Index].ItemData = FItemData();
+
+	}
+	else
+	{
+		InvenDatas[Index].ItemData = ItemData;
 	}
 
 	OnItemUpdated.Broadcast(Index, InvenDatas[Index]);

@@ -65,7 +65,6 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Widget")
 	UWidgetComponent* UIWidgetComponent;
 
-
 	UPROPERTY(EditDefaultsOnly, Category = "OutlineOverlay")
 	UMaterial* OutlineMaterial;
 

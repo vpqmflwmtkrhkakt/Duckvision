@@ -32,7 +32,7 @@ public:
 	int32 GetInventorySize() const { return InventorySize;}
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void UpdateItemData(const int32 Index, FItemData& ItemData);
+	void UpdateInvenData(const int32 Index, FItemData ItemData);
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void RemoveItem(const int32 Index);
 	
@@ -41,6 +41,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Items", meta = (AllowPriateAccess = "true"))
 	TArray<FInvenSlotData> InvenDatas;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inventory", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory", meta = (AllowPrivateAccess = "true"))
 	int32 InventorySize = 0;
 };
