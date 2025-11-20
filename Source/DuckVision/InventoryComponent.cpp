@@ -8,8 +8,6 @@
 void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	InvenDatas.Reserve(InventorySize);
 }
 
 FItemData UInventoryComponent::AddItem(FItemData ItemData)

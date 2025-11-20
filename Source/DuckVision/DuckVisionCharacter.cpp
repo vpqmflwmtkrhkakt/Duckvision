@@ -15,7 +15,6 @@
 #include "DebugHelper.h"
 #include "Weapon.h"
 #include "InteractableInterface.h"
-#include "InventoryComponent.h"
 #include "UISubsystem.h"
 
 ADuckVisionCharacter::ADuckVisionCharacter()
@@ -46,8 +45,6 @@ ADuckVisionCharacter::ADuckVisionCharacter()
 	TopDownCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TopDownCamera"));
 	TopDownCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	TopDownCameraComponent->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
-
-	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 
 	ConstructorHelpers::FClassFinder<AWeapon> WeaponClassFinder(TEXT("/Game/DuckVision/Blueprints/BP_Weapon"));
 
@@ -175,14 +172,9 @@ FVector ADuckVisionCharacter::GetJoinTargetLocation()
 	return EquippedWeapon->GetJointTargetLocation();
 }
 
-UInventoryComponent* ADuckVisionCharacter::GetInventoryComponent() const
+void ADuckVisionCharacter::SetInteractableObject(UObject* Object)
 {
-	return InventoryComponent;
-}
-
-void ADuckVisionCharacter::SetInteractableObject(IInteractableInterface* Object)
-{
-	InteractableObject = Cast<UObject>(Object);
+	InteractableObject = Object;
 }
 
 UObject* ADuckVisionCharacter::GetInteractableObject()

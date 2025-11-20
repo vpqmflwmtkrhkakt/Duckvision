@@ -41,5 +41,5 @@ protected:
 	TArray<FInvenSlotData> InvenDatas;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory", meta = (AllowPrivateAccess = "true"))
-	int32 InventorySize = 30;
+	int32 InventorySize = 0;
 };

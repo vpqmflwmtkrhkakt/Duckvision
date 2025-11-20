@@ -8,7 +8,6 @@
 
 class UAnimMontage;
 class AWeapon;
-class UInventoryComponent;
 class IInteractableInterface;
 
 UCLASS(Blueprintable)
@@ -35,9 +34,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FVector GetJoinTargetLocation();
 	UFUNCTION(BlueprintCallable)
-	UInventoryComponent* GetInventoryComponent() const;
-
-	void SetInteractableObject(IInteractableInterface* Object);
+	void SetInteractableObject(UObject* Object);
 
 	UFUNCTION(BlueprintCallable)
 	UObject* GetInteractableObject();
@@ -48,11 +45,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
-
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Inventory, meta = (AllowPrivateAccess = "true"))
-	UInventoryComponent* InventoryComponent;
-
 	UPROPERTY(EditAnywhere, Category = MovementSpeed, meta = (AllowPrivateAccess = "true"))
 	float MovementSpeed = 600.f;
 
