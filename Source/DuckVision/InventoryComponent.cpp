@@ -72,10 +72,10 @@ void UInventoryComponent::UpdateInvenData(const int32 Index, FItemData ItemData)
 	{
 		InvenDatas[Index].IsEmpty = true;
 		InvenDatas[Index].ItemData = FItemData();
-
 	}
 	else
 	{
+		InvenDatas[Index].IsEmpty = false;
 		InvenDatas[Index].ItemData = ItemData;
 	}
 
