@@ -131,6 +131,7 @@ void ADuckVisionCharacter::StartReload()
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 void ADuckVisionCharacter::InteractObject()
 {
 	if (!InteractableObject.IsValid()) return;
@@ -155,6 +156,11 @@ void ADuckVisionCharacter::TakeCover()
 {
 
 >>>>>>> 34b505b (Cover Action 추가)
+=======
+void ADuckVisionCharacter::TakeCover()
+{
+
+>>>>>>> 34b505b25072e47f6e0b706a2726fd2ffb8fd151
 }
 
 FTransform ADuckVisionCharacter::GetLHIKTransform()

@@ -37,11 +37,15 @@ private:
 	void OnClickRightButton(const FInputActionValue& Value);
 	void OnPressReload(const FInputActionValue& Value);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	void OnPressInteract(const FInputActionValue& Value);
 	void OnPressToggleInventory(const FInputActionValue& Value);
 =======
 	void OnTakeCover(const FInputActionValue& Value);
 >>>>>>> 34b505b (Cover Action 추가)
+=======
+	void OnTakeCover(const FInputActionValue& Value);
+>>>>>>> 34b505b25072e47f6e0b706a2726fd2ffb8fd151
 
 private:
 	/** MappingContext */
@@ -61,12 +65,15 @@ private:
 	UInputAction* ReloadAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* TakeCoverAction;
+<<<<<<< HEAD
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* InteractAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* ToggleInventoryAction;
+=======
+>>>>>>> 34b505b25072e47f6e0b706a2726fd2ffb8fd151
 
 	TObjectPtr<ADuckVisionCharacter> MainPlayer;
 };
