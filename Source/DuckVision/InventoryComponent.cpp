@@ -68,6 +68,8 @@ void UInventoryComponent::UpdateInvenData(const int32 Index, FItemData ItemData)
 {
 	if (!InvenDatas.IsValidIndex(Index)) return;
 
+	DebugHelper::Print("Index : " + FString::FromInt(Index));
+
 	if (ItemData.CurrentCount <= 0)
 	{
 		InvenDatas[Index].IsEmpty = true;
@@ -92,4 +94,5 @@ void UInventoryComponent::RemoveItem(const int32 Index)
 
 	OnItemUpdated.Broadcast(Index, InvenDatas[Index]);
 }
+
 

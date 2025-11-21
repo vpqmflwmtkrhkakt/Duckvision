@@ -36,7 +36,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void RemoveItem(const int32 Index);
 	
-
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Items", meta = (AllowPriateAccess = "true"))
 	TArray<FInvenSlotData> InvenDatas;
