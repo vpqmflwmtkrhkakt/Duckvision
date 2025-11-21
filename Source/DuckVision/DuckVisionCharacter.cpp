@@ -130,6 +130,7 @@ void ADuckVisionCharacter::StartReload()
 	AnimInstance->Montage_Play(ReloadAnimMontage);
 }
 
+<<<<<<< HEAD
 void ADuckVisionCharacter::InteractObject()
 {
 	if (!InteractableObject.IsValid()) return;
@@ -149,6 +150,11 @@ void ADuckVisionCharacter::ToggleInventory()
 	{
 		UISubSystem->ToggleUI(ELayerType::IngameMenu, UITypeEnum::Equipment);
 	}
+=======
+void ADuckVisionCharacter::TakeCover()
+{
+
+>>>>>>> 34b505b (Cover Action 추가)
 }
 
 FTransform ADuckVisionCharacter::GetLHIKTransform()

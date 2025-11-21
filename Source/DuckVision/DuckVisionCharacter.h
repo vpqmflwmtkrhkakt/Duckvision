@@ -26,8 +26,12 @@ public:
 	void StartAimToLocation();
 	void RotateToTargetLocation(const FVector& Location);
 	void StartReload();
+<<<<<<< HEAD
 	void InteractObject();
 	void ToggleInventory();
+=======
+	void TakeCover();
+>>>>>>> 34b505b (Cover Action 추가)
 
 	UFUNCTION(BlueprintCallable)
 	FTransform GetLHIKTransform();

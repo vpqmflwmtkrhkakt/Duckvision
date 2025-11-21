@@ -57,9 +57,13 @@ void ADuckVisionPlayerController::SetupInputComponent()
 
 		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnPressReload);
 
+<<<<<<< HEAD
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnPressInteract);
 
 		EnhancedInputComponent->BindAction(ToggleInventoryAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnPressToggleInventory);
+=======
+		EnhancedInputComponent->BindAction(TakeCoverAction, ETriggerEvent::Started, this, &ADuckVisionPlayerController::OnTakeCover);
+>>>>>>> 34b505b (Cover Action 추가)
 	}
 	else
 	{
@@ -111,6 +115,7 @@ void ADuckVisionPlayerController::OnPressReload(const FInputActionValue& Value)
 	}
 }
 
+<<<<<<< HEAD
 void ADuckVisionPlayerController::OnPressInteract(const FInputActionValue& Value)
 {
 	if (IsValid(MainPlayer))
@@ -124,5 +129,12 @@ void ADuckVisionPlayerController::OnPressToggleInventory(const FInputActionValue
 	if (IsValid(MainPlayer))
 	{
 		MainPlayer->ToggleInventory();
+=======
+void ADuckVisionPlayerController::OnTakeCover(const FInputActionValue& Value)
+{
+	if (IsValid(MainPlayer))
+	{
+		MainPlayer->TakeCover();
+>>>>>>> 34b505b (Cover Action 추가)
 	}
 }

@@ -36,8 +36,12 @@ private:
 	void OnClickLeftButton(const FInputActionValue& Value);
 	void OnClickRightButton(const FInputActionValue& Value);
 	void OnPressReload(const FInputActionValue& Value);
+<<<<<<< HEAD
 	void OnPressInteract(const FInputActionValue& Value);
 	void OnPressToggleInventory(const FInputActionValue& Value);
+=======
+	void OnTakeCover(const FInputActionValue& Value);
+>>>>>>> 34b505b (Cover Action 추가)
 
 private:
 	/** MappingContext */
@@ -55,6 +59,8 @@ private:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* ReloadAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* TakeCoverAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* InteractAction;
