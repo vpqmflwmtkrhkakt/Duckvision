@@ -9,6 +9,7 @@
 class UAnimMontage;
 class AWeapon;
 class IInteractableInterface;
+class UCoverSystemComponent;
 
 UCLASS(Blueprintable)
 class ADuckVisionCharacter : public ACharacter
@@ -26,16 +27,9 @@ public:
 	void StartAimToLocation();
 	void RotateToTargetLocation(const FVector& Location);
 	void StartReload();
-<<<<<<< HEAD
-<<<<<<< HEAD
 	void InteractObject();
 	void ToggleInventory();
-=======
 	void TakeCover();
->>>>>>> 34b505b (Cover Action 추가)
-=======
-	void TakeCover();
->>>>>>> 34b505b25072e47f6e0b706a2726fd2ffb8fd151
 
 	UFUNCTION(BlueprintCallable)
 	FTransform GetLHIKTransform();
@@ -68,5 +62,8 @@ private:
 	TObjectPtr<AWeapon> EquippedWeapon;
 
 	TWeakObjectPtr<UObject> InteractableObject;
+
+	UPROPERTY(EditAnywhere, Category = CoverSystem, meta = (AllowPrivateAccess = "true"))
+	UCoverSystemComponent* CoverSystem;
 };
 

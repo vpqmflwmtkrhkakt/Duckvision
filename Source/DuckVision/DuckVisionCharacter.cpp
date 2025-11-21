@@ -16,6 +16,7 @@
 #include "Weapon.h"
 #include "InteractableInterface.h"
 #include "UISubsystem.h"
+#include "CoverSystemComponent.h"
 
 ADuckVisionCharacter::ADuckVisionCharacter()
 {
@@ -57,6 +58,10 @@ ADuckVisionCharacter::ADuckVisionCharacter()
 		DebugHelper::Print("Find WeaponClass Failed");
 	}
 
+	CoverSystem = CreateDefaultSubobject<UCoverSystemComponent>(TEXT("CoverSystem"));
+	check(CoverSystem);
+
+
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
@@ -91,6 +96,8 @@ void ADuckVisionCharacter::BeginPlay()
 	{
 		UISubSystem->InitializeUI(Cast<APlayerController>(GetController()));
 	}
+
+
 }
 
 
@@ -130,8 +137,6 @@ void ADuckVisionCharacter::StartReload()
 	AnimInstance->Montage_Play(ReloadAnimMontage);
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 void ADuckVisionCharacter::InteractObject()
 {
 	if (!InteractableObject.IsValid()) return;
@@ -151,16 +156,14 @@ void ADuckVisionCharacter::ToggleInventory()
 	{
 		UISubSystem->ToggleUI(ELayerType::IngameMenu, UITypeEnum::Equipment);
 	}
-=======
+}
+
 void ADuckVisionCharacter::TakeCover()
 {
-
->>>>>>> 34b505b (Cover Action 추가)
-=======
-void ADuckVisionCharacter::TakeCover()
-{
-
->>>>>>> 34b505b25072e47f6e0b706a2726fd2ffb8fd151
+	if (CoverSystem)
+	{
+		CoverSystem->TakeCover();
+	}
 }
 
 FTransform ADuckVisionCharacter::GetLHIKTransform()
